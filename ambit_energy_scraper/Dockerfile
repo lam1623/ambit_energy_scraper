@@ -1,34 +1,20 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:11.0.0
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
-LABEL io.hass.name="Ambit Energy Scraper" \
-      io.hass.description="Extracts and sends Ambit Energy data to Home Assistant" \
-      io.hass.version="0.1.0" \
-      io.hass.type="addon"
-
-ENV LANG C.UTF-8
-
-# Install dependencies
+# Instalar dependencias necesarias
 RUN apk add --no-cache \
-    chromium \
-    chromium-chromedriver \
-    python3 \
-    py3-pip \
-    # Add build tools if needed
-    build-base
+      python3 \
+      py3-pip \
+      chromium \
+      chromium-chromedriver
 
-# Upgrade pip and install Python packages
-RUN pip3 install --no-cache-dir --upgrade pip \
-    && pip3 install selenium beautifulsoup4 requests
+# Instalar paquetes Python requeridos
+RUN pip3 install selenium beautifulsoup4 requests
 
-# Copy files
-COPY run.sh /run.sh
+# Copiar el script al sistema de archivos del contenedor
+COPY run.sh /
+COPY ambit_energy_scraper.py /app/ambit_energy_scraper.py
 RUN chmod a+x /run.sh
-
-COPY ambit_energy_scraper.py /usr/local/bin/ambit_energy_scraper.py
-RUN chmod a+x /usr/local/bin/ambit_energy_scraper.py
-
-WORKDIR /usr/local/bin
 
 CMD [ "/run.sh" ]
 
