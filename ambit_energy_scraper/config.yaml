@@ -17,20 +17,8 @@ options:
   ha_url: "http://homeassistant.local:8123"
   ha_token: "your_long_lived_token"
 schema:
-  - name: username
-    type: string
-    required: true
-    description: "Your Ambit Energy account username"
-  - name: password
-    type: string
-    required: true
-    description: "Your Ambit Energy account password"
-  - name: ha_url
-    type: string
-    required: true
-    description: "Home Assistant URL (e.g., http://homeassistant.local:8123)"
-  - name: ha_token
-    type: string
-    required: true
-    description: "Long-lived Home Assistant access token"
+  username: str
+  password: str
+  ha_url: str
+  ha_token: str
 
