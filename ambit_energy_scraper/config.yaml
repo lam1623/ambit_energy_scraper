@@ -12,10 +12,10 @@ arch:
 ports:
   8000/tcp: 8000
 options:
-  username: "your_username"
-  password: "your_password"
+  username: "secret.ambit_username"
+  password: "secret.ambit_password"
   ha_url: "http://homeassistant.local:8123"
-  ha_token: "your_long_lived_token"
+  ha_token: "secret.ha_token"
 schema:
   username:
     type: str
@@ -33,4 +33,3 @@ schema:
     type: str
     description: "Token de acceso de larga duración de Home Assistant"
     required: true
-
