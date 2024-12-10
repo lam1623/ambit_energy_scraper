@@ -17,6 +17,5 @@
     "ha_token": "str",
     "username": "str",
     "password": "str"
-  },
-  "image": "local/ambit_energy_scraper-addon"
+  }
 }
