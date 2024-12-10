@@ -2,25 +2,53 @@
   "name": "Ambit Energy Scraper",
   "version": "1.0.0",
   "slug": "ambit_energy_scraper",
-  "description": "Scrapes Ambit Energy data and sends it to Home Assistant",
+  "description": "Scrapes energy consumption data from Ambit Energy and sends it to Home Assistant.",
   "startup": "application",
-  "boot": "auto",
+  "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
+  "ports": {
+    "8000/tcp": 8000
+  },
   "options": {
-    "username": "str",
-    "password": "str",
-    "ha_url": "str",
-    "ha_token": "str"
+    "username": "secret.ambit_username",
+    "password": "secret.ambit_password",
+    "ha_url": "secret.ha_url",
+    "ha_token": "secret.ha_token"
   },
   "schema": {
-    "username": "str",
-    "password": "str",
-    "ha_url": "str",
-    "ha_token": "str"
+    "username": {
+      "type": "str",
+      "description": "Tu nombre de usuario de Ambit Energy",
+      "required": true
+    },
+    "password": {
+      "type": "str",
+      "description": "Tu contraseña de Ambit Energy",
+      "required": true
+    },
+    "ha_url": {
+      "type": "str",
+      "description": "URL de Home Assistant (e.g., http://homeassistant.local:8123)",
+      "required": true
+    },
+    "ha_token": {
+      "type": "str",
+      "description": "Token de acceso de larga duración de Home Assistant",
+      "required": true
+    }
   },
   "image": "local/ambit_energy_scraper",
-  "ports": {},
-  "host_network": false,
+  "logo": "https://github.com/lam1623/ambit_energy_scraper/blob/main/ambit_energy_scraper/logo.png?raw=true",
+  "documentation": "https://github.com/lam1623/ambit_energy_scraper/blob/main/ambit_energy_scraper/README.md",
+  "map": ["config", "ssl", "share", "backup"],
+  "environment": {
+    "USERNAME": "secret.ambit_username",
+    "PASSWORD": "secret.ambit_password",
+    "HA_URL": "secret.ha_url",
+    "HA_TOKEN": "secret.ha_token"
+  },
   "privileged": false,
-  "map": ["config", "ssl", "share", "backup"]
+  "devices": [],
+  "host_network": false,
+  "workdir": "/app"
 }
 
