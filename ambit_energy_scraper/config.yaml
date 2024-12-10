@@ -1,22 +1,8 @@
-name: "Ambit Energy Scraper"
-description: "Scrapes energy consumption data from Ambit Energy and sends it to Home Assistant."
-version: "1.0.0"
-slug: "ambit_energy_scraper"
-init: false
-arch:
-  - aarch64
-  - amd64
-  - armhf
-  - armv7
-  - i386
-startup: "application"
-ports:
-  8000/tcp: 8000
 options:
-  username: "tu_usuario"
-  password: "tu_contraseña"
+  username: "secret.ambit_username"
+  password: "secret.ambit_password"
   ha_url: "http://homeassistant.local:8123"
-  ha_token: "tu_token_de_ha"
+  ha_token: "secret.ha_token"
 schema:
   username:
     type: str
