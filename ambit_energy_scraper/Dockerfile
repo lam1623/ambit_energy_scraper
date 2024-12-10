@@ -1,24 +1,33 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim
 
-# Instalar dependencias del sistema
-RUN apk add --no-cache python3 chromium chromium-driver bash
+# Set environment variables
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+ENV PYTHONUNBUFFERED=1
 
-# Instalar dependencias de Python
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y \
+        chromium-driver \
+        chromium \
+        wget \
+        && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
 COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Crear el directorio de trabajo
+# Create app directory
+RUN mkdir /app
 WORKDIR /app
 
-# Copiar los archivos del add-on
+# Copy the script into the container
 COPY ambit_energy_scraper.py /app/
-COPY run.sh /app/
-COPY logo.png /app/
 
-# Dar permisos de ejecución al script
-RUN chmod +x /app/run.sh
+# Make the script executable
+RUN chmod +x /app/ambit_energy_scraper.py
 
-# Definir el comando por defecto
-CMD [ "/app/run.sh" ]
+# Define the default command
+CMD ["/app/ambit_energy_scraper.py"]
 
