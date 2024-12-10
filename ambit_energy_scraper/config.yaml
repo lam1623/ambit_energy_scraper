@@ -20,17 +20,13 @@ schema:
   username:
     type: str
     description: "Your Ambit Energy account username"
-    required: true
   password:
     type: str
     description: "Your Ambit Energy account password"
-    required: true
   ha_url:
     type: str
     description: "Home Assistant URL (e.g., http://homeassistant.local:8123)"
-    required: true
   ha_token:
     type: str
     description: "Long-lived Home Assistant access token"
-    required: true
 
