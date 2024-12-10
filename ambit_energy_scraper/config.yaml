@@ -33,4 +33,3 @@ schema:
     type: str
     description: "Token de acceso de larga duración de Home Assistant"
     required: true
-
