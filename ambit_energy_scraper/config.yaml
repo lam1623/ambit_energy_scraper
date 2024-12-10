@@ -12,10 +12,10 @@ arch:
 ports:
   8000/tcp: 8000
 options:
-  username: "your_username"
-  password: "your_password"
-  ha_url: "http://homeassistant.local:8123"
-  ha_token: "your_long_lived_token"
+  username: "secret.ambit_username"
+  password: "secret.ambit_password"
+  ha_url: "secret.ha_url"
+  ha_token: "secret.ha_token"
 schema:
   username:
     type: str
@@ -33,4 +33,21 @@ schema:
     type: str
     description: "Token de acceso de larga duración de Home Assistant"
     required: true
+image: "local/ambit_energy_scraper"
+logo: "https://github.com/lam1623/ambit_energy_scraper/blob/main/ambit_energy_scraper/ambitenergy-logo.svg?raw=true"
+documentation: "https://github.com/lam1623/ambit_energy_scraper/blob/main/ambit_energy_scraper/README.md"
+map:
+  - "config"
+  - "ssl"
+  - "share"
+  - "backup"
+environment:
+  USERNAME: "secret.ambit_username"
+  PASSWORD: "secret.ambit_password"
+  HA_URL: "secret.ha_url"
+  HA_TOKEN: "secret.ha_token"
+privileged: false
+devices: []
+host_network: false
+workdir: "/app"
 
