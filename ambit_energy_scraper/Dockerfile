@@ -1,33 +1,44 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:11.0.0
+# Use a Home Assistant Add-on base image
+FROM $BUILD_FROM
+
+# Set labels
+LABEL io.hass.name="Ambit Energy Scraper" \
+      io.hass.description="Extracts and sends Ambit Energy data to Home Assistant" \
+      io.hass.version="0.1.0" \
+      io.hass.type="addon"
 
 # Set environment variables
 ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
-ENV PYTHONUNBUFFERED=1
 
-# Install necessary packages
-RUN apt-get update && \
-    apt-get install -y \
-        chromium-driver \
-        chromium \
-        wget \
-        && rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN apk add --no-cache \
+    chromium \
+    chromium-chromedriver \
+    python3 \
+    py3-pip \
+    wait4ports \
+    jq \
+    curl \
+    bash
 
-# Install Python dependencies
-COPY requirements.txt /tmp/
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+# Upgrade pip and install Python packages
+RUN pip3 install --no-cache-dir --upgrade pip \
+    && pip3 install selenium beautifulsoup4 requests
 
-# Create app directory
-RUN mkdir /app
-WORKDIR /app
+# Copy files
+COPY run.sh /run.sh
+RUN chmod a+x /run.sh
 
-# Copy the script into the container
-COPY ambit_energy_scraper.py /app/
+COPY ambit_energy_scraper.py /usr/local/bin/ambit_energy_scraper.py
+RUN chmod a+x /usr/local/bin/ambit_energy_scraper.py
 
-# Make the script executable
-RUN chmod +x /app/ambit_energy_scraper.py
+# Set working directory
+WORKDIR /usr/local/bin
 
-# Define the default command
-CMD ["/app/ambit_energy_scraper.py"]
+# Expose ports if needed (not required for this script)
+# EXPOSE 8080
+
+# Run the script
+CMD [ "/run.sh" ]
 
