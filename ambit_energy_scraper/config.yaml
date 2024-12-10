@@ -17,8 +17,8 @@ options:
   ha_url: "http://homeassistant.local:8123"
   ha_token: "your_long_lived_token"
 schema:
-  username: str
-  password: str
-  ha_url: str
-  ha_token: str
+  username: "str"
+  password: "str"
+  ha_url: "str"
+  ha_token: "str"
 
