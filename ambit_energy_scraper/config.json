@@ -1,9 +1,9 @@
 {
   "name": "Ambit Energy Scraper",
-  "description": "Scrapes energy consumption data from Ambit Energy and sends it to Home Assistant.",
   "version": "1.0.0",
   "slug": "ambit_energy_scraper",
-  "startup": "application",
+  "description": "Scrapes energy consumption data from Ambit Energy and sends it to Home Assistant",
+  "url": "https://github.com/lam1623/ambit_energy_scraper",
   "arch": [
     "aarch64",
     "amd64",
@@ -11,32 +11,53 @@
     "armv7",
     "i386"
   ],
-  "ports": {
-    "8000/tcp": 8000
-  },
-  "ports_description": {
-    "8000/tcp": "Port para la interfaz HTTP (si aplica)"
-  },
-  "services": [],
+  "startup": "application",
+  "boot": "auto",
+  "init": false,
+  "ingress": true,
+  "timeout": 30,
+  "panel_icon": "mdi:flash",
+  "panel_title": "Ambit Energy Scraper",
+  "services": [
+    "mqtt:need"
+  ],
+  "uart": true,
+  "udev": true,
+  "privileged": false,
+  "devices": [],
+  "host_network": false,
+  "host_pid": false,
+  "host_dbus": false,
+  "host_uts": false,
+  "host_ipc": false,
   "map": [
     {
       "type": "share",
       "read_only": false
     },
     {
-      "type": "config",
-      "access": "rw"
+      "type": "homeassistant_config",
+      "read_only": false,
+      "path": "/config"
     },
     {
-      "type": "ssl",
-      "access": "rw"
+      "type": "addon_config",
+      "read_only": false,
+      "path": "/addon_config"
     }
   ],
+  "ports": {
+    "8000/tcp": 8000
+  },
+  "ports_description": {
+    "8000/tcp": "HTTP Interface"
+  },
   "options": {
     "username": "your_username",
     "password": "your_password",
     "ha_url": "http://homeassistant.local:8123",
-    "ha_token": "your_long_lived_token"
+    "ha_token": "your_long_lived_token",
+    "scrape_interval": 3600
   },
   "schema": {
     "username": {
@@ -58,12 +79,25 @@
       "type": "str",
       "description": "Token de acceso de larga duración de Home Assistant",
       "required": true
+    },
+    "scrape_interval": {
+      "type": "int",
+      "default": 3600,
+      "description": "Intervalo en segundos entre cada scraping de datos"
     }
   },
-  "image": "local/ambit_energy_scraper",
-  "privileged": false,
-  "udev": false,
+  "image": "ghcr.io/home-assistant/{arch}-ambit_energy_scraper",
   "env_vars": {},
-  "cert": true
+  "addons": [],
+  "auth_api": false,
+  "docker_api": false,
+  "homeassistant_api": false,
+  "hassio_api": false,
+  "realtime": false,
+  "journald": false,
+  "tmpfs": false,
+  "privileged": false,
+  "advanced": false,
+  "stage": "stable"
 }
 
