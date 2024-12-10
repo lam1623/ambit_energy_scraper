@@ -1,21 +1,27 @@
 {
   "name": "Ambit Energy Scraper",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "slug": "ambit_energy_scraper",
-  "description": "An add-on to scrape Ambit Energy data and send to Home Assistant",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "description": "Extracts Ambit Energy consumption data and sends it to Home Assistant.",
+  "arch": ["amd64", "armv7", "armhf", "aarch64"],
   "startup": "services",
   "boot": "auto",
+  "init": false,
+  "ports": {},
   "options": {
-    "ha_url": "http://homeassistant:8123",
+    "username": "YOUR_AMBIT_USERNAME",
+    "password": "YOUR_AMBIT_PASSWORD",
     "ha_token": "YOUR_LONG_LIVED_ACCESS_TOKEN",
-    "username": "AMBIG_USERNAME",
-    "password": "AMBIG_PASSWORD"
+    "ha_url": "http://homeassistant:8123",
+    "interval_hours": 6
   },
   "schema": {
-    "ha_url": "str",
-    "ha_token": "str",
     "username": "str",
-    "password": "str"
-  }
+    "password": "str",
+    "ha_token": "str",
+    "ha_url": "str",
+    "interval_hours": "int"
+  },
+  "image": "local/ambit_energy_scraper"
 }
+
