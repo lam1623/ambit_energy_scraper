@@ -1,15 +1,16 @@
 {
   "name": "Ambit Energy Scraper",
-  "version": "1.0.0",
+  "version": "1.0",
   "slug": "ambit_energy_scraper",
-  "description": "Scrapes energy consumption data from Ambit Energy and sends it to Home Assistant.",
+  "description": "Scrapes energy data from Ambit Energy and sends it to Home Assistant.",
+  "arch": ["amd64", "armv7", "arm64"],
   "startup": "application",
   "boot": "auto",
   "options": {
-    "username": "YOUR_USERNAME",
-    "password": "YOUR_PASSWORD",
-    "ha_url": "http://home_assistant_ip:8123/api/states/sensor.ambit_energy_consumption",
-    "ha_token": "YOUR_LONG_LIVED_ACCESS_TOKEN"
+    "username": "",
+    "password": "",
+    "ha_url": "http://homeassistant.local:8123",
+    "ha_token": ""
   },
   "schema": {
     "username": "str",
@@ -17,28 +18,6 @@
     "ha_url": "str",
     "ha_token": "str"
   },
-  "image": "local/ambit_energy_scraper",
-  "arch": [
-    "armv7",
-    "armhf",
-    "aarch64",
-    "amd64"
-  ],
-  "ports": {},
-  "map": [
-    "config",
-    "ssl",
-    "backup"
-  ],
-  "environment": {
-    "USERNAME": "secret.ambit_username",
-    "PASSWORD": "secret.ambit_password",
-    "HA_URL": "http://home_assistant_ip:8123/api/states/sensor.ambit_energy_consumption",
-    "HA_TOKEN": "secret.ha_token"
-  },
-  "privileged": false,
-  "devices": [],
-  "host_network": false,
-  "workdir": "/app"
+  "image": "local/ambit_energy_scraper"
 }
 
