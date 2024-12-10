@@ -1,5 +1,5 @@
 name: "Ambit Energy Scraper"
-description: "Scrape Ambit Energy usage data and send it to Home Assistant"
+description: "Scrape energy usage from Ambit Energy and send it to Home Assistant"
 version: "1.0.0"
 slug: "ambit_energy_scraper"
 startup: application
@@ -16,3 +16,21 @@ options:
   password: "your_password"
   ha_url: "http://homeassistant.local:8123"
   ha_token: "your_long_lived_token"
+schema:
+  username:
+    type: str
+    description: "Your Ambit Energy account username"
+    required: true
+  password:
+    type: str
+    description: "Your Ambit Energy account password"
+    required: true
+  ha_url:
+    type: str
+    description: "Home Assistant URL (e.g., http://homeassistant.local:8123)"
+    required: true
+  ha_token:
+    type: str
+    description: "Long-lived Home Assistant access token"
+    required: true
+
