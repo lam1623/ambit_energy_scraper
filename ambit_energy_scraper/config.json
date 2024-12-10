@@ -22,6 +22,6 @@
     "ha_url": "str",
     "interval_hours": "int"
   },
-  "image": "local/ambit_energy_scraper"
+  "image": "ambit_energy_scraper"
 }
 
